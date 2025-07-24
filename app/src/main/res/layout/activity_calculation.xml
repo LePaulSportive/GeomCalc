@@ -98,4 +98,12 @@
         android:textSize="16sp"
         android:textStyle="bold"/>
 
+        <!-- Новая кнопка "Поделиться" -->
+        <Button
+            android:id="@+id/buttonShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Поделиться"
+            android:layout_marginTop="16dp"/>
+
 </LinearLayout>
