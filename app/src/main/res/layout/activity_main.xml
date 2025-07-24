@@ -1,53 +1,130 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="16dp">
+    android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Выберите фигуру"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp"/>
-
-    <Button
-        android:id="@+id/button_square"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Квадрат"/>
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
 
-    <Button
-        android:id="@+id/button_rectangle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Прямоугольник"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Выберите фигуру"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
 
-    <Button
-        android:id="@+id/button_triangle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Треугольник"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Квадрат"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
 
-    <Button
-        android:id="@+id/button_circle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Круг"/>
+        <ImageButton
+            android:id="@+id/button_square"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/square"
+            android:contentDescription="Квадрат"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_marginBottom="8dp" />
 
-    <Button
-        android:id="@+id/button_trapezoid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Трапеция"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Прямоугольник"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
 
-    <Button
-        android:id="@+id/button_rhombus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ромб"/>
+        <ImageButton
+            android:id="@+id/button_rectangle"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/rectangle"
+            android:contentDescription="Прямоугольник"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_marginBottom="8dp" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Треугольник"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <ImageButton
+            android:id="@+id/button_triangle"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/triangle"
+            android:contentDescription="Треугольник"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Круг"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <ImageButton
+            android:id="@+id/button_circle"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/circle"
+            android:contentDescription="Круг"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Трапеция"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <ImageButton
+            android:id="@+id/button_trapezoid"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/trapezoid"
+            android:contentDescription="Трапеция"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ромб"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <ImageButton
+            android:id="@+id/button_rhombus"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/rhombus"
+            android:contentDescription="Ромб"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_marginBottom="8dp" />
+
+    </LinearLayout>
+</ScrollView>

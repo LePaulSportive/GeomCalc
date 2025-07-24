@@ -2,7 +2,7 @@ package com.example.geomcalc
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         for ((id, shape) in buttons) {
-            findViewById<Button>(id).setOnClickListener {
+            findViewById<ImageButton>(id).setOnClickListener {
                 val intent = Intent(this, CalculationActivity::class.java)
                 intent.putExtra("SHAPE", shape) // Теперь передача корректная
                 startActivity(intent)
