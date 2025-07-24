@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="shapes_array">
+        <item>Круг</item>
+        <item>Треугольник</item>
+        <item>Прямоугольник</item>
+        <item>Квадрат</item>
+        <item>Трапеция</item>
+        <item>Эллипс</item>
+    </string-array>
+</resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выберите фигуру"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/button_square"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Квадрат"/>
+
+    <Button
+        android:id="@+id/button_rectangle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Прямоугольник"/>
+
+    <Button
+        android:id="@+id/button_triangle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Треугольник"/>
+
+    <Button
+        android:id="@+id/button_circle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Круг"/>
+
+    <Button
+        android:id="@+id/button_trapezoid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Трапеция"/>
+
+    <Button
+        android:id="@+id/button_rhombus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ромб"/>
+
+</LinearLayout>

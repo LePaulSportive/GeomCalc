@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textShapeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Фигура: "
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Площадь"/>
+
+        <RadioButton
+            android:id="@+id/radioPerimeter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Периметр"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/label1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите значение 1"/>
+
+    <EditText
+        android:id="@+id/input1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"/>
+
+    <TextView
+        android:id="@+id/label2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите значение 2"/>
+
+    <EditText
+        android:id="@+id/input2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"/>
+
+    <TextView
+        android:id="@+id/label3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите значение 3"
+        android:visibility="gone"/>
+
+    <EditText
+        android:id="@+id/input3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/label4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите значение 4"
+        android:visibility="gone"/>
+
+    <EditText
+        android:id="@+id/input4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/buttonCalculate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Рассчитать"/>
+
+    <TextView
+        android:id="@+id/textResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Результат: "
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+</LinearLayout>
