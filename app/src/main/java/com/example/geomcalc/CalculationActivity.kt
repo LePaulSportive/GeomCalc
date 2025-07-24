@@ -2,6 +2,7 @@ package com.example.geomcalc
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ class CalculationActivity : AppCompatActivity() {
     private lateinit var buttonCalculate: Button
     private lateinit var textResult: TextView
     private lateinit var buttonShare: Button
+    private lateinit var imageFormula: ImageView
 
     private lateinit var label1: TextView
     private lateinit var label2: TextView
@@ -24,16 +26,25 @@ class CalculationActivity : AppCompatActivity() {
     private lateinit var input4: EditText
 
     private var shape: String = ""
+    private var calculationType: String = "area" // "area" или "perimeter"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculation)
 
+        initViews()
+        setupDefaults()
+        setListeners()
+    }
+
+    private fun initViews() {
         textShapeName = findViewById(R.id.textShapeName)
         radioArea = findViewById(R.id.radioArea)
         radioPerimeter = findViewById(R.id.radioPerimeter)
         buttonCalculate = findViewById(R.id.buttonCalculate)
         textResult = findViewById(R.id.textResult)
+        buttonShare = findViewById(R.id.buttonShare)
+        imageFormula = findViewById(R.id.imageFormula)
 
         label1 = findViewById(R.id.label1)
         label2 = findViewById(R.id.label2)
@@ -43,24 +54,47 @@ class CalculationActivity : AppCompatActivity() {
         input2 = findViewById(R.id.input2)
         input3 = findViewById(R.id.input3)
         input4 = findViewById(R.id.input4)
+    }
 
+    private fun setupDefaults() {
         shape = intent.getStringExtra("SHAPE") ?: "Неизвестная фигура"
         textShapeName.text = "Фигура: $shape"
 
-        setupFieldsVisibility()
+        // Устанавливаем площадь по умолчанию
+        radioArea.isChecked = true
+        calculationType = "area"
 
-        buttonShare = findViewById(R.id.buttonShare)
-        buttonShare.setOnClickListener { shareResult() }
-        radioArea.setOnCheckedChangeListener { _, _ -> setupFieldsVisibility() }
-        radioPerimeter.setOnCheckedChangeListener { _, _ -> setupFieldsVisibility() }
+        updateUI()
+    }
+
+    private fun setListeners() {
+        radioArea.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                calculationType = "area"
+                updateUI()
+            }
+        }
+
+        radioPerimeter.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                calculationType = "perimeter"
+                updateUI()
+            }
+        }
 
         buttonCalculate.setOnClickListener { calculate() }
+        buttonShare.setOnClickListener { shareResult() }
+    }
+
+    private fun updateUI() {
+        setupFieldsVisibility()
+        updateFormulaImage()
     }
 
     private fun setupFieldsVisibility() {
         when (shape) {
             "Квадрат" -> {
-                label1.text = "Введите сторону"
+                label1.text = if (calculationType == "area") "Введите сторону" else "Введите сторону"
                 showFields(1)
             }
             "Прямоугольник" -> {
@@ -69,7 +103,7 @@ class CalculationActivity : AppCompatActivity() {
                 showFields(2)
             }
             "Треугольник" -> {
-                if (radioArea.isChecked) {
+                if (calculationType == "area") {
                     label1.text = "Введите основание"
                     label2.text = "Введите высоту"
                     showFields(2)
@@ -85,7 +119,7 @@ class CalculationActivity : AppCompatActivity() {
                 showFields(1)
             }
             "Ромб" -> {
-                if (radioArea.isChecked) {
+                if (calculationType == "area") {
                     label1.text = "Введите диагональ 1"
                     label2.text = "Введите диагональ 2"
                     showFields(2)
@@ -97,7 +131,7 @@ class CalculationActivity : AppCompatActivity() {
             "Трапеция" -> {
                 label1.text = "Введите основание a"
                 label2.text = "Введите основание b"
-                if (radioArea.isChecked) {
+                if (calculationType == "area") {
                     label3.text = "Введите высоту"
                     showFields(3)
                 } else {
@@ -110,35 +144,71 @@ class CalculationActivity : AppCompatActivity() {
     }
 
     private fun showFields(count: Int) {
-        val fields = listOf(label1 to input1, label2 to input2, label3 to input3, label4 to input4)
-        for (i in fields.indices) {
-            if (i < count) {
-                fields[i].first.visibility = View.VISIBLE
-                fields[i].second.visibility = View.VISIBLE
+        val fields = listOf(
+            label1 to input1,
+            label2 to input2,
+            label3 to input3,
+            label4 to input4
+        )
+
+        fields.forEachIndexed { index, (label, input) ->
+            if (index < count) {
+                label.visibility = View.VISIBLE
+                input.visibility = View.VISIBLE
             } else {
-                fields[i].first.visibility = View.GONE
-                fields[i].second.visibility = View.GONE
+                label.visibility = View.GONE
+                input.visibility = View.GONE
+                input.text.clear()
             }
         }
     }
 
-    private fun calculate() {
-        val val1 = input1.text.toString().toDoubleOrNull() ?: 0.0
-        val val2 = input2.text.toString().toDoubleOrNull() ?: 0.0
-        val val3 = input3.text.toString().toDoubleOrNull() ?: 0.0
-        val val4 = input4.text.toString().toDoubleOrNull() ?: 0.0
-
-        val result = when (shape) {
-            "Квадрат" -> if (radioArea.isChecked) val1 * val1 else 4 * val1
-            "Прямоугольник" -> if (radioArea.isChecked) val1 * val2 else 2 * (val1 + val2)
-            "Треугольник" -> if (radioArea.isChecked) 0.5 * val1 * val2 else val1 + val2 + val3
-            "Круг" -> if (radioArea.isChecked) Math.PI * val1 * val1 else 2 * Math.PI * val1
-            "Ромб" -> if (radioArea.isChecked) (val1 * val2) / 2 else 4 * val1
-            "Трапеция" -> if (radioArea.isChecked) 0.5 * (val1 + val2) * val3 else val1 + val2 + val3 + val4
-            else -> 0.0
+    private fun updateFormulaImage() {
+        val imageName = when (shape) {
+            "Квадрат" -> "square_$calculationType"
+            "Прямоугольник" -> "rectangle_$calculationType"
+            "Треугольник" -> "triangle_$calculationType"
+            "Круг" -> "circle_$calculationType"
+            "Ромб" -> "rhombus_$calculationType"
+            "Трапеция" -> "trapezoid_$calculationType"
+            else -> null
         }
 
-        textResult.text = "Результат: $result"
+        imageName?.let { name ->
+            val resId = resources.getIdentifier(name, "drawable", packageName)
+            if (resId != 0) {
+                imageFormula.setImageResource(resId)
+                imageFormula.visibility = View.VISIBLE
+            } else {
+                imageFormula.visibility = View.GONE
+                Log.e("FormulaImage", "Image not found: $name")
+            }
+        } ?: run {
+            imageFormula.visibility = View.GONE
+        }
+    }
+
+    private fun calculate() {
+        try {
+            val val1 = input1.text.toString().toDoubleOrNull() ?: 0.0
+            val val2 = input2.text.toString().toDoubleOrNull() ?: 0.0
+            val val3 = input3.text.toString().toDoubleOrNull() ?: 0.0
+            val val4 = input4.text.toString().toDoubleOrNull() ?: 0.0
+
+            val result = when (shape) {
+                "Квадрат" -> if (calculationType == "area") val1 * val1 else 4 * val1
+                "Прямоугольник" -> if (calculationType == "area") val1 * val2 else 2 * (val1 + val2)
+                "Треугольник" -> if (calculationType == "area") 0.5 * val1 * val2 else val1 + val2 + val3
+                "Круг" -> if (calculationType == "area") Math.PI * val1 * val1 else 2 * Math.PI * val1
+                "Ромб" -> if (calculationType == "area") (val1 * val2) / 2 else 4 * val1
+                "Трапеция" -> if (calculationType == "area") 0.5 * (val1 + val2) * val3 else val1 + val2 + val3 + val4
+                else -> 0.0
+            }
+
+            textResult.text = "Результат: ${"%.2f".format(result)}"
+        } catch (e: Exception) {
+            Toast.makeText(this, "Ошибка в расчетах: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun shareResult() {
@@ -148,13 +218,19 @@ class CalculationActivity : AppCompatActivity() {
             return
         }
 
+        val shareText = """
+            Результат расчета:
+            Фигура: $shape
+            Тип: ${if (calculationType == "area") "Площадь" else "Периметр"}
+            $resultText
+        """.trimIndent()
+
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, resultText)
+            putExtra(Intent.EXTRA_TEXT, shareText)
             type = "text/plain"
         }
 
-        val shareChooser = Intent.createChooser(shareIntent, "Поделиться результатом")
-        startActivity(shareChooser)
+        startActivity(Intent.createChooser(shareIntent, "Поделиться результатом"))
     }
 }
