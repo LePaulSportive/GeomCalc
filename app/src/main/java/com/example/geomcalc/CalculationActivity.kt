@@ -1,5 +1,6 @@
 package com.example.geomcalc
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -11,6 +12,7 @@ class CalculationActivity : AppCompatActivity() {
     private lateinit var radioPerimeter: RadioButton
     private lateinit var buttonCalculate: Button
     private lateinit var textResult: TextView
+    private lateinit var buttonShare: Button
 
     private lateinit var label1: TextView
     private lateinit var label2: TextView
@@ -47,6 +49,8 @@ class CalculationActivity : AppCompatActivity() {
 
         setupFieldsVisibility()
 
+        buttonShare = findViewById(R.id.buttonShare)
+        buttonShare.setOnClickListener { shareResult() }
         radioArea.setOnCheckedChangeListener { _, _ -> setupFieldsVisibility() }
         radioPerimeter.setOnCheckedChangeListener { _, _ -> setupFieldsVisibility() }
 
@@ -135,5 +139,22 @@ class CalculationActivity : AppCompatActivity() {
         }
 
         textResult.text = "Результат: $result"
+    }
+
+    private fun shareResult() {
+        val resultText = textResult.text.toString()
+        if (resultText == "Результат: ") {
+            Toast.makeText(this, "Сначала рассчитайте результат", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, resultText)
+            type = "text/plain"
+        }
+
+        val shareChooser = Intent.createChooser(shareIntent, "Поделиться результатом")
+        startActivity(shareChooser)
     }
 }
